@@ -12,7 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://social-media-content-analyzer-git-adc5b8-avis-projects-b39c9678.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -46,6 +51,10 @@ app.use('/api/history', historyRoutes);
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
+});
+
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
 });
 
 // Error handling middleware
